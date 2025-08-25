@@ -9,9 +9,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Значения по умолчанию
     const defaults = {
-        loginSelector: "input[type='username']",
-        passwordSelector: "input[type='password']",
-        submitSelector: "button[type='login']"
+        loginSelector: "input[name='username']",
+        passwordSelector: "input[name='password']",
+        submitSelector: "button[name='login']"
     };
 
     // Загружаем сохраненные настройки
