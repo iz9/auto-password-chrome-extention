@@ -1,0 +1,62 @@
+name: Create Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Get version from tag
+        id: tag_version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+
+      - name: Create zip archive
+        run: |
+          cd src
+          zip -r ../auto-login-extension-v${{ steps.tag_version.outputs.VERSION }}.zip .
+
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Auto Login Helper v${{ steps.tag_version.outputs.VERSION }}
+          body: |
+            ## 📥 Установка
+            1. Скачайте `auto-login-extension-v${{ steps.tag_version.outputs.VERSION }}.zip`
+            2. Распакуйте архив
+            3. Откройте Chrome → `chrome://extensions/`
+            4. Включите "Режим разработчика" 
+            5. "Загрузить распакованное расширение" → выберите папку
+            
+            ## ⚙️ Первая настройка
+            1. Нажмите на иконку расширения → "Настройки"
+            2. Введите стандартный пароль
+            3. При необходимости настройте селекторы
+            
+            См. полную документацию в README.md
+          draft: false
+          prerelease: false
+
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./auto-login-extension-v${{ steps.tag_version.outputs.VERSION }}.zip
+          asset_name: auto-login-extension-v${{ steps.tag_version.outputs.VERSION }}.zip
+          asset_content_type: application/zip
