@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "Auto Login Helper",
+  "version": "1.0",
+  "description": "Автоматическое заполнение форм авторизации",
+  "permissions": [
+    "activeTab",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Auto Login Helper"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "options_page": "options.html"
+}

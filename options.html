@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Настройки Auto Login Helper</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #666;
+            font-size: 14px;
+        }
+        .toggle-password:hover {
+            color: #333;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .status {
+            margin-top: 10px;
+            padding: 8px;
+            border-radius: 4px;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .selector-info {
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<h1>Настройки Auto Login Helper</h1>
+
+<div class="form-group">
+    <label for="defaultPassword">Стандартный пароль:</label>
+    <div class="password-container">
+        <input type="password" id="defaultPassword" placeholder="Введите стандартный пароль">
+        <button type="button" class="toggle-password" id="togglePassword">👁</button>
+    </div>
+</div>
+
+<div class="form-group">
+    <label for="loginSelector">Селектор для логина:</label>
+    <input type="text" id="loginSelector" placeholder="input[type='username']">
+    <div class="selector-info">Например: input[name='username'], #login, .username-field</div>
+</div>
+
+<div class="form-group">
+    <label for="passwordSelector">Селектор для пароля:</label>
+    <input type="text" id="passwordSelector" placeholder="input[type='password']">
+    <div class="selector-info">Например: input[name='password'], #password, .password-field</div>
+</div>
+
+<div class="form-group">
+    <label for="submitSelector">Селектор для кнопки входа:</label>
+    <input type="text" id="submitSelector" placeholder="button[type='login']">
+    <div class="selector-info">Например: button[type='submit'], #login-btn, .submit-button</div>
+</div>
+
+<button id="save">Сохранить</button>
+<div id="status"></div>
+
+<script src="options.js"></script>
+</body>
+</html>
